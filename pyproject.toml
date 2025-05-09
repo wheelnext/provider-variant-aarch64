@@ -1,0 +1,17 @@
+[build-system]
+requires = ["flit_core >=3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "provider-variant-aarch64"
+authors = [{name = "Michał Górny", email = "mgorny@quansight.com"}]
+license = "MIT"
+license-files = ["LICENSE"]
+dynamic = ["version", "description"]
+dependencies = [
+    "archspec",
+    "variantlib",
+]
+
+[project.urls]
+Home = "https://github.com/wheelnext/provider-variant-aarch64/"
