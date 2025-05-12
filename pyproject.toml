@@ -7,6 +7,7 @@ name = "provider-variant-aarch64"
 authors = [{name = "Michał Górny", email = "mgorny@quansight.com"}]
 license = "MIT"
 license-files = ["LICENSE"]
+requires-python = ">=3.9"
 dynamic = ["version", "description"]
 dependencies = [
     "archspec",
