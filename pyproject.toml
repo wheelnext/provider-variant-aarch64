@@ -15,3 +15,7 @@ dependencies = [
 
 [project.urls]
 Home = "https://github.com/wheelnext/provider-variant-aarch64/"
+
+
+[project.entry-points.variant_plugins]
+provider_variant_aarch64 = "provider_variant_aarch64.plugin:AArch64Plugin"
