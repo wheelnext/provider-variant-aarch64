@@ -19,7 +19,56 @@ class AArch64Plugin(PluginType):
     max_known_version = "armv9.0a"
     """Max version supported at the time"""
 
-    all_features = []
+    all_features = [
+        # neoverse_n2/v2 (armv9.0) features
+        "sve2",
+        "flagm2",
+        "frint",
+        "sb",
+        # m2 (armv8.5) features
+        "btiecv",
+        # m1 (armv8.4) features
+        "paca",
+        "pacg",
+        "ssbs",
+        # neoverse_v1 (armv8.4) features
+        "asimdfhm",
+        "bf16",
+        "dcpodp",
+        "dgh",
+        "dit",
+        "flagm",
+        "i8mm",
+        "ilrcpc",
+        "jscvt",
+        "rng",
+        "sha3",
+        "sha512",
+        "svebf16",
+        "svei8mm",
+        "uscat",
+        # neoverse_n1 (armv8.2) features
+        "asimddp",
+        "lrcpc",
+        # a64fx (armv8.2) features
+        "asimdhp",
+        "dcpop",
+        "fcma",
+        "fphp",
+        "sve",
+        # thunerx2 (armv8.1) features
+        "asimdrdmatomics",
+        # cortex_a72 (armv8.0) features
+        "aes",
+        "asimd",
+        "cpuid",
+        "crc32",
+        "evtstrm",
+        "fp",
+        "pmull",
+        "sha1",
+        "sha2",
+    ]
     """All features supported by archspec at the time, sorted in preference order"""
 
     @staticmethod
