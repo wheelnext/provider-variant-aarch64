@@ -95,7 +95,7 @@ class AArch64Plugin(PluginType):
 
     def get_supported_configs(self) -> list[VariantFeatureConfigType]:
         microarch = archspec.cpu.host()
-        if "aarch64" in microarch.ancestors:
+        if "aarch64" in (microarch.generic, *microarch.ancestors):
             generic = microarch.generic
             # ceil to max supported version
             if self.max_known_version in generic.ancestors:

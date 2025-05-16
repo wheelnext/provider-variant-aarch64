@@ -57,6 +57,13 @@ def test_arm84a_configs(mocker, plugin):
     ]
 
 
+def test_aarch64_configs(mocker, plugin):
+    mocker.patch("archspec.cpu.host").return_value = archspec.cpu.TARGETS["aarch64"]
+    assert plugin.get_supported_configs() == [
+        VariantFeatureConfig("version", ["8a"]),
+    ]
+
+
 def test_non_arm_configs(mocker, plugin):
     mocker.patch("archspec.cpu.host").return_value = archspec.cpu.TARGETS["nehalem"]
     assert plugin.get_supported_configs() == []
