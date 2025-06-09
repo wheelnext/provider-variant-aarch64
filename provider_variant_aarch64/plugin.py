@@ -1,19 +1,30 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 import archspec.cpu
-
-from variantlib.models.provider import VariantFeatureConfig
-from variantlib.protocols import PluginType
-from variantlib.protocols import VariantFeatureConfigType
-from variantlib.protocols import VariantPropertyType
 
 if TYPE_CHECKING:
     from collections.abc import Generator
 
 
-class AArch64Plugin(PluginType):
+@dataclass(frozen=True)
+class VariantFeatureConfig:
+    name: str
+
+    # Acceptable values in priority order
+    values: list[str]
+
+
+@dataclass(frozen=True)
+class VariantProperty:
+    namespace: str
+    feature: str
+    value: str
+
+
+class AArch64Plugin:
     namespace = "aarch64"
 
     max_known_version = "armv9.0a"
@@ -85,7 +96,7 @@ class AArch64Plugin(PluginType):
         for ancestor in microarch.ancestors:
             yield cls._archspec_to_plugin(ancestor.name)
 
-    def get_all_configs(self) -> list[VariantFeatureConfigType]:
+    def get_all_configs(self) -> list[VariantFeatureConfig]:
         return [
             VariantFeatureConfig(
                 "version",
@@ -93,7 +104,7 @@ class AArch64Plugin(PluginType):
             ),
         ] + [VariantFeatureConfig(feature, ["on"]) for feature in self.all_features]
 
-    def get_supported_configs(self) -> list[VariantFeatureConfigType]:
+    def get_supported_configs(self) -> list[VariantFeatureConfig]:
         microarch = archspec.cpu.host()
         if "aarch64" in (microarch.generic, *microarch.ancestors):
             generic = microarch.generic
@@ -111,7 +122,7 @@ class AArch64Plugin(PluginType):
         return []
 
     def get_build_setup(
-        self, properties: list[VariantPropertyType]
+        self, properties: list[VariantProperty]
     ) -> dict[str, list[str]]:
         for prop in properties:
             assert prop.namespace == self.namespace

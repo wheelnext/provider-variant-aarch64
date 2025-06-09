@@ -11,8 +11,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 dynamic = ["version", "description"]
 dependencies = [
-    "archspec",
-    "variantlib",
+    "archspec"
 ]
 
 [project.optional-dependencies]
