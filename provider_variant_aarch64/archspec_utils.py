@@ -17,6 +17,9 @@ def load_archspec() -> ModuleType:
         name=name,
         location=Path(__file__).parent / "vendor/archspec/archspec/__init__.py",
     )
+    if spec is None or spec.loader is None:
+        raise ImportError("The submodule `archspec` is missing.")
+
     module = importlib.util.module_from_spec(spec)
     sys.modules[name] = module
     spec.loader.exec_module(module)
