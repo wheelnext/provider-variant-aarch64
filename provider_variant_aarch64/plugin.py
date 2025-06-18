@@ -1,40 +1,13 @@
 from __future__ import annotations
 
-import importlib.util
-import sys
 from dataclasses import dataclass
-from pathlib import Path
 from typing import TYPE_CHECKING
+
+import archspec  # pyright: ignore[reportMissingImports]
+import archspec.cpu  # pyright: ignore[reportMissingImports]
 
 if TYPE_CHECKING:
     from collections.abc import Generator
-
-
-def _load_vendored_archspec() -> None:
-    """
-    Load a vendored `archspec` library.
-
-    Returns:
-        module (ModuleType): The loaded module.
-    """
-    name = "archspec"
-
-    spec = importlib.util.spec_from_file_location(
-        name=name,
-        location=Path(__file__).parent / "vendor/archspec/archspec/__init__.py",
-    )
-    if spec is None or spec.loader is None:
-        raise ImportError("The submodule `archspec` is missing.")
-
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module
-    spec.loader.exec_module(module)
-
-
-_load_vendored_archspec()
-
-import archspec  # noqa: E402 # pyright: ignore[reportMissingImports]
-import archspec.cpu  # noqa: E402 # pyright: ignore[reportMissingImports]
 
 
 @dataclass(frozen=True)
