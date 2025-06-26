@@ -111,3 +111,31 @@ def test_level_cap(mocker, plugin):
     assert plugin.get_supported_configs() == [
         VariantFeatureConfig("version", compatible_versions),
     ]
+
+
+@pytest.mark.parametrize(
+    "vprop",
+    [
+        "aarch64 :: version :: 8.5a",
+        "aarch64 :: version :: 9.0a",
+        "aarch64 :: crc32 :: on",
+        "aarch64 :: sha2 :: on",
+        "aarch64 :: sve :: on",
+    ],
+)
+def test_validate_variant(vprop: str, plugin) -> None:
+    assert plugin.validate_property(VariantProperty.from_str(vprop))
+
+
+@pytest.mark.parametrize(
+    "vprop",
+    [
+        "aarch64 :: version :: 7.3a",
+        "aarch64 :: version :: 8.5b",
+        "aarch64 :: version :: foo",
+        "aarch64 :: crc32 :: off",
+        "aarch64 :: weirdthing :: on",
+    ],
+)
+def test_validate_variant_fail(vprop: str, plugin) -> None:
+    assert not plugin.validate_property(VariantProperty.from_str(vprop))
