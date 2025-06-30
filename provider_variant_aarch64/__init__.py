@@ -6,7 +6,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
-__version__ = "0.0.1.post1"
+__version__ = "0.0.1.post2"
 
 
 def _load_vendored_archspec() -> None:
