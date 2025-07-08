@@ -128,18 +128,19 @@ class AArch64Plugin:
 
         return []
 
-    def get_build_setup(
-        self, properties: list[VariantProperty]
-    ) -> dict[str, list[str]]:
+    def get_compiler_flags(
+        self, compiler_type: str, properties: list[VariantProperty]
+    ) -> list[str]:
+        if compiler_type not in ("gcc", "clang"):
+            raise NotImplementedError(
+                f"Flags for compiler {compiler_type} not implemented"
+            )
+
         for prop in properties:
             assert prop.namespace == self.namespace
             if prop.feature == "version":
-                flag = f"-march=armv{prop.value.replace('a', '-a')}"
-                return {
-                    "cflags": [flag],
-                    "cxxflags": [flag],
-                }
-        return {}
+                return [f"-march=armv{prop.value.replace('a', '-a')}"]
+        return []
 
 
 if __name__ == "__main__":

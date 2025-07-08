@@ -69,31 +69,30 @@ def test_non_arm_configs(mocker, plugin):
     assert plugin.get_supported_configs() == []
 
 
-def test_get_build_setup(plugin):
-    assert plugin.get_build_setup(
+def test_get_compiler_flags(plugin):
+    assert plugin.get_compiler_flags(
+        "gcc",
         [
             VariantProperty("aarch64", "version", "8.4a"),
             VariantProperty("aarch64", "sve", "on"),
-        ]
-    ) == {
-        "cflags": ["-march=armv8.4-a"],
-        "cxxflags": ["-march=armv8.4-a"],
-    }
+        ],
+    ) == ["-march=armv8.4-a"]
 
 
-def test_get_build_setup_no_level(plugin):
+def test_get_compiler_flags_no_level(plugin):
     assert (
-        plugin.get_build_setup(
+        plugin.get_compiler_flags(
+            "gcc",
             [
                 VariantProperty("aarch64", "sve", "on"),
-            ]
+            ],
         )
-        == {}
+        == []
     )
 
 
-def test_get_build_setup_no_properties(plugin):
-    assert plugin.get_build_setup([]) == {}
+def test_get_compiler_flags_no_properties(plugin):
+    assert plugin.get_compiler_flags("clang", []) == []
 
 
 def test_level_cap(mocker, plugin):
