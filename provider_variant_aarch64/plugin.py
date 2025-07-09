@@ -129,11 +129,18 @@ class AArch64Plugin:
         return []
 
     def get_compiler_flags(
-        self, compiler_type: str, properties: list[VariantProperty]
+        self,
+        language: str,
+        compiler_name: str,
+        compiler_version: str,
+        properties: list[VariantProperty],
     ) -> list[str]:
-        if compiler_type not in ("gcc", "clang"):
+        # TODO: use archspec to get flags
+
+        if language not in ("c", "c++") or compiler_name not in ("gcc", "clang"):
             raise NotImplementedError(
-                f"Flags for compiler {compiler_type} not implemented"
+                f"Flags for language {language} compiler {compiler_name} "
+                "not implemented"
             )
 
         for prop in properties:

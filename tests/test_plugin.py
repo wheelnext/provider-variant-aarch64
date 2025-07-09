@@ -71,7 +71,9 @@ def test_non_arm_configs(mocker, plugin):
 
 def test_get_compiler_flags(plugin):
     assert plugin.get_compiler_flags(
+        "c",
         "gcc",
+        "14.3.0",
         [
             VariantProperty("aarch64", "version", "8.4a"),
             VariantProperty("aarch64", "sve", "on"),
@@ -82,7 +84,9 @@ def test_get_compiler_flags(plugin):
 def test_get_compiler_flags_no_level(plugin):
     assert (
         plugin.get_compiler_flags(
-            "gcc",
+            "c++",
+            "clang",
+            "20.1.8",
             [
                 VariantProperty("aarch64", "sve", "on"),
             ],
@@ -92,7 +96,7 @@ def test_get_compiler_flags_no_level(plugin):
 
 
 def test_get_compiler_flags_no_properties(plugin):
-    assert plugin.get_compiler_flags("clang", []) == []
+    assert plugin.get_compiler_flags("c", "clang", "19.1.7", []) == []
 
 
 def test_level_cap(mocker, plugin):
