@@ -27,7 +27,6 @@ class VariantProperty:
 
 class AArch64Plugin:
     namespace = "aarch64"
-    dynamic = False
 
     max_known_version = "armv9.0a"
     """Max version supported at the time"""
@@ -109,9 +108,7 @@ class AArch64Plugin:
             and variant_property.value == "on"
         )
 
-    def get_supported_configs(
-        self, known_properties: frozenset[VariantProperty] | None
-    ) -> list[VariantFeatureConfig]:
+    def get_supported_configs(self) -> list[VariantFeatureConfig]:
         microarch = archspec.cpu.host()
         if "aarch64" in (microarch.generic, *microarch.ancestors):
             generic = microarch.generic
