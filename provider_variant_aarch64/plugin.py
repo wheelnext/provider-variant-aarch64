@@ -97,16 +97,13 @@ class AArch64Plugin:
         for ancestor in microarch.ancestors:
             yield cls._archspec_to_plugin(ancestor.name)
 
-    def validate_property(self, variant_property: VariantProperty) -> bool:
-        assert variant_property.namespace == self.namespace
-        if variant_property.feature == "version":
-            return variant_property.value in self._version_range(
-                archspec.cpu.TARGETS[self.max_known_version]
-            )
-        return (
-            variant_property.feature in self.all_features
-            and variant_property.value == "on"
-        )
+    def get_all_configs(self) -> list[VariantFeatureConfig]:
+        return [
+            VariantFeatureConfig(
+                "version",
+                list(self._version_range(archspec.cpu.TARGETS[self.max_known_version])),
+            ),
+        ] + [VariantFeatureConfig(feature, ["on"]) for feature in self.all_features]
 
     def get_supported_configs(self) -> list[VariantFeatureConfig]:
         microarch = archspec.cpu.host()
@@ -149,5 +146,5 @@ class AArch64Plugin:
 
 if __name__ == "__main__":
     plugin = AArch64Plugin()
-    print(plugin.get_supported_configs(None))  # noqa: T201
+    print(plugin.get_supported_configs())  # noqa: T201
     # print(plugin.get_all_configs())
