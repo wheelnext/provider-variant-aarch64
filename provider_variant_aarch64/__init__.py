@@ -18,6 +18,9 @@ def _load_vendored_archspec() -> None:
     """
     name = "archspec"
 
+    if name in sys.modules:
+        return
+
     spec = importlib.util.spec_from_file_location(
         name=name,
         location=Path(__file__).parent / "vendor/archspec/archspec/__init__.py",
