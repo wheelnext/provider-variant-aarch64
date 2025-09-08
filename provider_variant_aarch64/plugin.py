@@ -130,7 +130,10 @@ class AArch64Plugin:
     ) -> list[str]:
         # TODO: use archspec to get flags
 
-        if language not in ("c", "c++") or compiler_name not in ("gcc", "clang"):
+        if language not in ("c", "c++", "fortran") or compiler_name not in (
+            "gcc",
+            "clang",
+        ):
             raise NotImplementedError(
                 f"Flags for language {language} compiler {compiler_name} "
                 "not implemented"
