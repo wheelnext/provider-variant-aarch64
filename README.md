@@ -21,16 +21,16 @@ plugin-api = "provider_variant_aarch64.plugin:AArch64Plugin"
 ## Provided properties
 
 To obtain the full list of properties supported by a given plugin
-version, use:
+version, install it, then use:
 
 ```sh
-variantlib plugins -p provider_variant_aarch64.plugin:AArch64Plugin get-all-configs
+variantlib plugins get-configs -a -n aarch64
 ```
 
 To obtain the full list of properties compatible with your system, use:
 
 ```sh
-variantlib plugins -p provider_variant_aarch64.plugin:AArch64Plugin get-supported-configs
+variantlib plugins get-configs -s -n aarch64
 ```
 
 ### aarch64 :: version
