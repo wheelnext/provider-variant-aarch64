@@ -96,33 +96,36 @@ class AArch64Plugin:
         for ancestor in microarch.ancestors:
             yield cls._archspec_to_plugin(ancestor.name)
 
-    def get_all_configs(self) -> list[VariantFeatureConfig]:
+    @classmethod
+    def get_all_configs(cls) -> list[VariantFeatureConfig]:
         return [
             VariantFeatureConfig(
                 "version",
-                list(self._version_range(archspec_cpu.TARGETS[self.max_known_version])),
+                list(cls._version_range(archspec_cpu.TARGETS[cls.max_known_version])),
             ),
-        ] + [VariantFeatureConfig(feature, ["on"]) for feature in self.all_features]
+        ] + [VariantFeatureConfig(feature, ["on"]) for feature in cls.all_features]
 
-    def get_supported_configs(self) -> list[VariantFeatureConfig]:
+    @classmethod
+    def get_supported_configs(cls) -> list[VariantFeatureConfig]:
         microarch = archspec_cpu.host()
         if "aarch64" in (microarch.generic, *microarch.ancestors):
             generic = microarch.generic
             # ceil to max supported version
-            if self.max_known_version in generic.ancestors:
-                generic = archspec_cpu.TARGETS[self.max_known_version]
+            if cls.max_known_version in generic.ancestors:
+                generic = archspec_cpu.TARGETS[cls.max_known_version]
             return [
-                VariantFeatureConfig("version", list(self._version_range(generic))),
+                VariantFeatureConfig("version", list(cls._version_range(generic))),
             ] + [
                 VariantFeatureConfig(feature, ["on"])
-                for feature in self.all_features
+                for feature in cls.all_features
                 if feature in microarch
             ]
 
         return []
 
+    @classmethod
     def get_compiler_flags(
-        self,
+        cls,
         language: str,
         compiler_name: str,
         compiler_version: str,
@@ -140,13 +143,12 @@ class AArch64Plugin:
             )
 
         for prop in properties:
-            assert prop.namespace == self.namespace
+            assert prop.namespace == cls.namespace
             if prop.feature == "version":
                 return [f"-march=armv{prop.value.replace('a', '-a')}"]
         return []
 
 
 if __name__ == "__main__":
-    plugin = AArch64Plugin()
-    print(plugin.get_supported_configs())  # noqa: T201
+    print(AArch64Plugin.get_supported_configs())  # noqa: T201
     # print(plugin.get_all_configs())
