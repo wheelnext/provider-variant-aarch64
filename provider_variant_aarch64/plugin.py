@@ -150,5 +150,6 @@ class AArch64Plugin:
 
 
 if __name__ == "__main__":
-    print(AArch64Plugin.get_supported_configs())  # noqa: T201
-    # print(plugin.get_all_configs())
+    print(f"{AArch64Plugin.namespace=}")  # noqa: T201
+    print(f"{AArch64Plugin.get_supported_configs()=}")  # noqa: T201
+    print(f"{AArch64Plugin.get_all_configs()=}")  # noqa: T201
