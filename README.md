@@ -8,14 +8,13 @@ properties specific to AArch64 CPUs.
 
 Namespace: `aarch64`
 
-Plugin API: `provider_variant_aarch64.plugin:AArch64Plugin`
+Plugin API: `provider_variant_aarch64` (the default)
 
 Example use in `pyproject.toml`:
 
 ```toml
 [variant.providers.aarch64]
-requires = ["provider-variant-aarch64 >=0.0.1,<1"]
-plugin-api = "provider_variant_aarch64.plugin:AArch64Plugin"
+requires = ["provider-variant-aarch64"]
 ```
 
 ## Provided properties
