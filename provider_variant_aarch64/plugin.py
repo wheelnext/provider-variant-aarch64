@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 @dataclass(frozen=True)
 class VariantFeatureConfig:
     name: str
-
     # Acceptable values in priority order
     values: list[str]
+    multi_value: bool = False
 
 
 @dataclass(frozen=True)
