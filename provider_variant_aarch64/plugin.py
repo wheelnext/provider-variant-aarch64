@@ -25,8 +25,6 @@ class VariantProperty:
 
 
 class AArch64Plugin:
-    namespace = "aarch64"
-
     max_known_version = "armv9.0a"
     """Max version supported at the time"""
 
@@ -143,13 +141,11 @@ class AArch64Plugin:
             )
 
         for prop in properties:
-            assert prop.namespace == cls.namespace
             if prop.feature == "version":
                 return [f"-march=armv{prop.value.replace('a', '-a')}"]
         return []
 
 
 if __name__ == "__main__":
-    print(f"{AArch64Plugin.namespace=}")  # noqa: T201
     print(f"{AArch64Plugin.get_supported_configs()=}")  # noqa: T201
     print(f"{AArch64Plugin.get_all_configs()=}")  # noqa: T201
