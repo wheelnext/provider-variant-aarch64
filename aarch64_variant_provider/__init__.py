@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from .plugin import AArch64Plugin
 
-__version__ = "0.0.3"
+__version__ = "0.2.0"
 
 get_supported_configs = AArch64Plugin.get_supported_configs
 get_all_configs = AArch64Plugin.get_all_configs
