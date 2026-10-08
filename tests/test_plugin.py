@@ -4,9 +4,9 @@ from argparse import Namespace
 
 import pytest
 
-from provider_variant_aarch64.plugin import AArch64Plugin
-from provider_variant_aarch64.plugin import VariantFeatureConfig
-from provider_variant_aarch64.plugin import archspec_cpu
+from aarch64_variant_provider.plugin import AArch64Plugin
+from aarch64_variant_provider.plugin import VariantFeatureConfig
+from aarch64_variant_provider.plugin import archspec_cpu
 from variantlib.models.variant import VariantProperty
 
 
@@ -17,7 +17,7 @@ def plugin() -> AArch64Plugin:
 
 def test_cortex_a72_configs(mocker, plugin):
     mocker.patch(
-        "provider_variant_aarch64.plugin.archspec_cpu.host"
+        "aarch64_variant_provider.plugin.archspec_cpu.host"
     ).return_value = archspec_cpu.TARGETS["cortex_a72"]
     assert plugin.get_supported_configs() == [
         VariantFeatureConfig("version", ["8a"]),
@@ -35,7 +35,7 @@ def test_cortex_a72_configs(mocker, plugin):
 
 def test_a64fx_configs(mocker, plugin):
     mocker.patch(
-        "provider_variant_aarch64.plugin.archspec_cpu.host"
+        "aarch64_variant_provider.plugin.archspec_cpu.host"
     ).return_value = archspec_cpu.TARGETS["a64fx"]
     assert plugin.get_supported_configs() == [
         VariantFeatureConfig("version", ["8.2a", "8.1a", "8a"]),
@@ -56,7 +56,7 @@ def test_a64fx_configs(mocker, plugin):
 
 def test_arm84a_configs(mocker, plugin):
     mocker.patch(
-        "provider_variant_aarch64.plugin.archspec_cpu.host"
+        "aarch64_variant_provider.plugin.archspec_cpu.host"
     ).return_value = archspec_cpu.TARGETS["armv8.4a"]
     assert plugin.get_supported_configs() == [
         VariantFeatureConfig("version", ["8.4a", "8.3a", "8.2a", "8.1a", "8a"]),
@@ -65,7 +65,7 @@ def test_arm84a_configs(mocker, plugin):
 
 def test_aarch64_configs(mocker, plugin):
     mocker.patch(
-        "provider_variant_aarch64.plugin.archspec_cpu.host"
+        "aarch64_variant_provider.plugin.archspec_cpu.host"
     ).return_value = archspec_cpu.TARGETS["aarch64"]
     assert plugin.get_supported_configs() == [
         VariantFeatureConfig("version", ["8a"]),
@@ -74,7 +74,7 @@ def test_aarch64_configs(mocker, plugin):
 
 def test_non_arm_configs(mocker, plugin):
     mocker.patch(
-        "provider_variant_aarch64.plugin.archspec_cpu.host"
+        "aarch64_variant_provider.plugin.archspec_cpu.host"
     ).return_value = archspec_cpu.TARGETS["nehalem"]
     assert plugin.get_supported_configs() == []
 
@@ -117,7 +117,7 @@ def test_level_cap(mocker, plugin):
         f"armv{ver}" if ver != "8a" else "aarch64" for ver in compatible_versions
     ]
     mocker.patch(
-        "provider_variant_aarch64.plugin.archspec_cpu.host"
+        "aarch64_variant_provider.plugin.archspec_cpu.host"
     ).return_value = Namespace(
         name="frobnicator",
         ancestors={"armv9.1a", *compatible_microarchitectures},

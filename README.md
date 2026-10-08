@@ -1,4 +1,4 @@
-# provider-variant-aarch64
+# aarch64-variant-provider
 
 This is a plugin for the proposed [wheel variants implementation](
 https://github.com/wheelnext/pep_xxx_wheel_variants) that provides
@@ -8,13 +8,13 @@ properties specific to AArch64 CPUs.
 
 Namespace: `aarch64`
 
-Plugin API: `provider_variant_aarch64` (the default)
+Plugin API: `aarch64_variant_provider` (the default)
 
 Example use in `pyproject.toml`:
 
 ```toml
 [variant.providers.aarch64]
-requires = ["provider-variant-aarch64"]
+requires = ["aarch64-variant-provider"]
 ```
 
 ## Provided properties
@@ -68,7 +68,7 @@ fine, disabling the code in question).
 Detection is backed by archspec and shared between
 [provider-variant-x86-64](https://github.com/wheelnext/provider-variant-x86-64)
 and
-[provider-variant-aarch64](https://github.com/wheelnext/provider-variant-aarch64).
+[aarch64-variant-provider](https://github.com/wheelnext/aarch64-variant-provider).
 The output from each command is mapped against the
 [archspec microarchitecture database](https://github.com/archspec/archspec-json/blob/90b453f4053b6b139d1d2cb78c463b02e71ef363/cpu/microarchitectures.json)
 to emit the actual feature.

@@ -8,7 +8,7 @@ dev-dependencies = [
 ]
 
 [project]
-name = "provider-variant-aarch64"
+name = "aarch64-variant-provider"
 authors = [{name = "Michał Górny", email = "mgorny@quansight.com"}]
 license = "MIT"
 license-files = ["LICENSE"]
@@ -24,7 +24,7 @@ test = [
 ]
 
 [project.urls]
-Home = "https://github.com/wheelnext/provider-variant-aarch64/"
+Home = "https://github.com/wheelnext/aarch64-variant-provider/"
 
 [project.entry-points.variant_plugins]
-aarch64 = "provider_variant_aarch64"
+aarch64 = "aarch64_variant_provider"
